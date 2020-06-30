@@ -1,0 +1,29 @@
+version: '3.3'
+services:
+  bookstore:
+    container_name: bookstore
+    image: 'joko/bookstore'
+    ports:
+      - '8090:8090'
+    networks:
+      - micro
+
+  reading:
+    container_name: reading
+    image: 'joko/reading'
+    ports:
+      - '8080:8080'
+    networks:
+      - micro
+
+  configuration-server:
+    container_name: configuration-server
+    image: 'joko/configuration-server'
+    ports:
+      - '8888:8888'
+    networks:
+      - micro
+
+networks:
+  micro:
+    driver: bridge
