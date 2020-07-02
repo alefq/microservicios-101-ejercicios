@@ -2,6 +2,9 @@ version: '3.3'
 services:
   bookstore:
     container_name: bookstore
+    build:
+        context: ./bookstore
+        dockerfile: Dockerfile
     image: 'joko/bookstore'
     ports:
       - '8090:8090'
@@ -11,6 +14,9 @@ services:
   reading:
     container_name: reading
     image: 'joko/reading'
+    build:
+        context: ./reading
+        dockerfile: Dockerfile
     ports:
       - '8080:8080'
     networks:
@@ -19,6 +25,9 @@ services:
   configuration-server:
     container_name: configuration-server
     image: 'joko/configuration-server'
+    build:
+        context: ./configuration-service
+        dockerfile: Dockerfile
     ports:
       - '8888:8888'
     networks:
