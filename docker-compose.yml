@@ -8,8 +8,12 @@ services:
     image: 'joko/bookstore'
     ports:
       - '8090:8090'
+    depends_on:
+      - configuration-server
     networks:
       - micro
+    environment:
+      spring.cloud.config.uri: 'http://configuration-server:8888/'
 
   reading:
     container_name: reading
@@ -19,8 +23,14 @@ services:
         dockerfile: Dockerfile
     ports:
       - '8080:8080'
+    depends_on:
+            - configuration-server
+    links:
+      - configuration-server:configuration-server
     networks:
       - micro
+    environment:
+      spring.cloud.config.uri: 'http://configuration-server:8888/'
 
   configuration-server:
     container_name: configuration-server
@@ -36,3 +46,4 @@ services:
 networks:
   micro:
     driver: bridge
+
