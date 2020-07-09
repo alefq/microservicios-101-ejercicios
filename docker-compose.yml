@@ -13,7 +13,8 @@ services:
     networks:
       - micro
     environment:
-      spring.cloud.config.uri: 'http://configuration-server:8888/'
+            - "spring.cloud.config.uri=http://configuration-server:8888/"
+            - "SPRING_PROFILES_ACTIVE=dev"
 
   reading:
     container_name: reading
@@ -30,7 +31,8 @@ services:
     networks:
       - micro
     environment:
-      spring.cloud.config.uri: 'http://configuration-server:8888/'
+            - "spring.cloud.config.uri=http://configuration-server:8888/"
+            - "SPRING_PROFILES_ACTIVE=dev"
 
   configuration-server:
     container_name: configuration-server
