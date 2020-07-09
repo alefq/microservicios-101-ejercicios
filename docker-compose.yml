@@ -28,6 +28,7 @@ services:
             - configuration-server
     links:
       - configuration-server:configuration-server
+      - bookstore:bookstore
     networks:
       - micro
     environment:
