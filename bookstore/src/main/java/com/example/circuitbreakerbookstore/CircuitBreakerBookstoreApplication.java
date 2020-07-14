@@ -2,11 +2,13 @@ package com.example.circuitbreakerbookstore;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
 @SpringBootApplication
+@EnableDiscoveryClient
 public class CircuitBreakerBookstoreApplication {
 
   @RequestMapping(value = "/recommended")
