@@ -69,8 +69,29 @@ services:
     environment:
             - "spring.cloud.config.uri=http://configuration-server:8888/"
             - "SPRING_PROFILES_ACTIVE=dev"
+  
+  zuul-api-gateway:
+    container_name: zuul-api-gateway
+    build:
+        context: ./zuul-api-gateway
+        dockerfile: Dockerfile
+    image: 'joko/zuul-api-gateway'
+    links:
+      - eureka-server:eureka-server
+      - configuration-server:configuration-server
+      - bookstore:bookstore
+      - reading:reading
+    ports:
+      - '8181:8181'
+    networks:
+      - micro
+    environment:
+            - "spring.cloud.config.uri=http://configuration-server:8888/"
+            - "SPRING_PROFILES_ACTIVE=dev"
+            - "WAIT_HOSTS=configuration-server:8888,eureka-server:8761"
 
 networks:
   micro:
     driver: bridge
+
 

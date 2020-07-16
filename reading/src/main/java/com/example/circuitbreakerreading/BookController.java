@@ -28,7 +28,7 @@ public class BookController {
 
     public static final String MAXIMO_TIEMPO_DE_TOLERANCIA = "5000";
 
-    @Value("${timeoutInMilliseconds}")
+    @Value("${timeoutInMilliseconds:1000}")
     private Long timeout;
 
     @Autowired
