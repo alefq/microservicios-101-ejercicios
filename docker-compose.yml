@@ -90,6 +90,24 @@ services:
             - "SPRING_PROFILES_ACTIVE=dev"
             - "WAIT_HOSTS=configuration-server:8888,eureka-server:8761"
 
+  reading2:
+    container_name: reading2
+    image: 'joko/reading'
+    depends_on:
+            - configuration-server
+            - eureka-server
+    links:
+      - eureka-server:eureka-server
+      - configuration-server:configuration-server
+      - bookstore:bookstore
+    networks:
+      - micro
+    environment:
+            - "spring.cloud.config.uri=http://configuration-server:8888/"
+            - "SPRING_PROFILES_ACTIVE=dev"
+            - "WAIT_HOSTS=configuration-server:8888,eureka-server:8761"
+
+
 networks:
   micro:
     driver: bridge
