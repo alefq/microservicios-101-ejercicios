@@ -8,13 +8,18 @@ services:
     image: 'joko/bookstore'
     ports:
       - '8090:8090'
+    links:
+      - eureka-server:eureka-server
+      - configuration-server:configuration-server
     depends_on:
       - configuration-server
+      - eureka-server
     networks:
       - micro
     environment:
             - "spring.cloud.config.uri=http://configuration-server:8888/"
             - "SPRING_PROFILES_ACTIVE=dev"
+            - "WAIT_HOSTS=configuration-server:8888,eureka-server:8761"
 
   reading:
     container_name: reading
@@ -26,7 +31,9 @@ services:
       - '8080:8080'
     depends_on:
             - configuration-server
+            - eureka-server
     links:
+      - eureka-server:eureka-server
       - configuration-server:configuration-server
       - bookstore:bookstore
     networks:
@@ -34,6 +41,7 @@ services:
     environment:
             - "spring.cloud.config.uri=http://configuration-server:8888/"
             - "SPRING_PROFILES_ACTIVE=dev"
+            - "WAIT_HOSTS=configuration-server:8888,eureka-server:8761"
 
   configuration-server:
     container_name: configuration-server
@@ -43,8 +51,24 @@ services:
         dockerfile: Dockerfile
     ports:
       - '8888:8888'
+    links:
+      - eureka-server:eureka-server
     networks:
       - micro
+
+  eureka-server:
+    container_name: eureka-server
+    build:
+        context: ./eureka-server
+        dockerfile: Dockerfile
+    image: 'joko/eureka-server'
+    ports:
+      - '8761:8761'
+    networks:
+      - micro
+    environment:
+            - "spring.cloud.config.uri=http://configuration-server:8888/"
+            - "SPRING_PROFILES_ACTIVE=dev"
 
 networks:
   micro:
