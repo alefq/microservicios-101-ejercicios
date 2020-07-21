@@ -24,7 +24,7 @@ public class CircuitBreakerBookstoreApplication {
     @Value("${spring.application.name}")
     private String appName;
 
-    @Value("${server.port}")
+    @Value("${server.port:8090}")
     private String portNumber;
 
     @RequestMapping(value = "/recommended")

@@ -30,6 +30,8 @@ public class BookService {
         URI uri = URI.create(OTRO_MICROSERVICE_DE_CONSULTA);
         if (bookstoreUrl != null) {
             uri = URI.create(bookstoreUrl);
+        } else {
+            LOGGER.info("No hay bookstore.url configurado");
         }
         LOGGER.info("Consultando servicio:  {}", uri);
         return this.restTemplate.getForObject(uri, String.class);

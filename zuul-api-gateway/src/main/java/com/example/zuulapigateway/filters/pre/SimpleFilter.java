@@ -33,7 +33,7 @@ public class SimpleFilter extends ZuulFilter {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
         ctx.addZuulRequestHeader("X-JOKO-MICROSERVICES-101", "Unagi!");
-        LOGGER.info("Emeplo de PRE filter");
+        LOGGER.info("Ejemplo de PRE filter");
         LOGGER.info(String.format("%s request to %s", request.getMethod(), request.getRequestURL().toString()));
 
         return null;

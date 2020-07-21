@@ -11,6 +11,7 @@ services:
     links:
       - eureka-server:eureka-server
       - configuration-server:configuration-server
+      - zipkin-server:zipkin-server
     depends_on:
       - configuration-server
       - eureka-server
@@ -36,12 +37,13 @@ services:
       - eureka-server:eureka-server
       - configuration-server:configuration-server
       - bookstore:bookstore
+      - zipkin-server:zipkin-server
     networks:
       - micro
     environment:
             - "spring.cloud.config.uri=http://configuration-server:8888/"
             - "SPRING_PROFILES_ACTIVE=dev"
-            - "WAIT_HOSTS=configuration-server:8888,eureka-server:8761"
+            - "WAIT_HOSTS=configuration-server:8888,eureka-server:8761,zipkin-server:9411"
 
   configuration-server:
     container_name: configuration-server
@@ -81,6 +83,7 @@ services:
       - configuration-server:configuration-server
       - bookstore:bookstore
       - reading:reading
+      - zipkin-server:zipkin-server
     ports:
       - '8181:8181'
     networks:
@@ -100,6 +103,7 @@ services:
       - eureka-server:eureka-server
       - configuration-server:configuration-server
       - bookstore:bookstore
+      - zipkin-server:zipkin-server
     networks:
       - micro
     environment:
@@ -107,6 +111,13 @@ services:
             - "SPRING_PROFILES_ACTIVE=dev"
             - "WAIT_HOSTS=configuration-server:8888,eureka-server:8761"
 
+  zipkin-server:
+        container_name: 'zipkin'
+        image: 'openzipkin/zipkin'
+        ports:
+             - '9411:9411'
+        networks:
+             - micro
 
 networks:
   micro:
