@@ -21,6 +21,7 @@ services:
             - "spring.cloud.config.uri=http://configuration-server:8888/"
             - "SPRING_PROFILES_ACTIVE=dev"
             - "WAIT_HOSTS=configuration-server:8888,eureka-server:8761"
+            - "WAIT_HOSTS_TIMEOUT=300"
 
   reading:
     container_name: reading
@@ -44,6 +45,7 @@ services:
             - "spring.cloud.config.uri=http://configuration-server:8888/"
             - "SPRING_PROFILES_ACTIVE=dev"
             - "WAIT_HOSTS=configuration-server:8888,eureka-server:8761,zipkin-server:9411"
+            - "WAIT_HOSTS_TIMEOUT=300"
 
   configuration-server:
     container_name: configuration-server
@@ -92,6 +94,7 @@ services:
             - "spring.cloud.config.uri=http://configuration-server:8888/"
             - "SPRING_PROFILES_ACTIVE=dev"
             - "WAIT_HOSTS=configuration-server:8888,eureka-server:8761"
+            - "WAIT_HOSTS_TIMEOUT=300"
 
   reading2:
     container_name: reading2
@@ -110,6 +113,7 @@ services:
             - "spring.cloud.config.uri=http://configuration-server:8888/"
             - "SPRING_PROFILES_ACTIVE=dev"
             - "WAIT_HOSTS=configuration-server:8888,eureka-server:8761"
+            - "WAIT_HOSTS_TIMEOUT=300"
 
   zipkin-server:
         container_name: 'zipkin'
